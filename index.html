@@ -5,160 +5,405 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ian Akiles | Web Developer</title>
 <meta name="description" content="Design, código, projetos, resultados. Portfólio, LinkedIn e orçamento.">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#3f7fd0">
 <meta property="og:title" content="Ian Akiles | Web Developer">
 <meta property="og:description" content="Desenvolver ideias em experiências reais.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/3ca5d10d-ea2f-4907-876f-33bde169469e.jpg">
+<link rel="preload" as="font" type="font/woff2" href="fonts/grandstander-latin-900-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/inter-latin-500-normal.woff2" crossorigin>
+<script>document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim')</script>
 <style>
+  @font-face{font-family:'Grandstander';font-weight:900;font-style:normal;font-display:swap;src:url(fonts/grandstander-latin-900-normal.woff2) format('woff2')}
+  @font-face{font-family:'Inter';font-weight:400;font-style:normal;font-display:swap;src:url(fonts/inter-latin-400-normal.woff2) format('woff2')}
+  @font-face{font-family:'Inter';font-weight:500;font-style:normal;font-display:swap;src:url(fonts/inter-latin-500-normal.woff2) format('woff2')}
+
   :root{
-    --bg:#0a0a0a; --fg:#f2f2f0; --dim:#8a8a85; --line:#2a2a28;
-    --acc:#f5b301;
+    --u:calc(100vw / 1440);          /* calc(var(--u) * 1) = 1px num frame de 1440 */
+    --green:#5b875c;
+    --meadow:#4b7a3e;
+    --display:'Grandstander','Baloo 2','Trebuchet MS',system-ui,sans-serif;
+    --text:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    background:var(--bg);color:var(--fg);
-    font-family:'JetBrains Mono',ui-monospace,monospace;
-    min-height:100vh;display:flex;justify-content:center;
-    background-image:
-      linear-gradient(var(--line) 1px,transparent 1px),
-      linear-gradient(90deg,var(--line) 1px,transparent 1px);
-    background-size:40px 40px;
-    background-position:-1px -1px;
+  html{-webkit-text-size-adjust:100%;background:var(--meadow);scroll-behavior:smooth}
+  body{font-family:var(--text);color:#fff;background:var(--meadow);overflow-x:hidden}
+  a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  ul{list-style:none}
+  :focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:12px}
+
+  /* ============ HERO: um quadro de 1440 x 1280 ============ */
+  .hero{
+    position:relative;width:100%;height:calc(1280 * var(--u));overflow:hidden;
+    background:linear-gradient(#2f72c6 0,#8ec6ee 52%,#a9d49a 60%,#6c9f4c 100%);
   }
-  .wrap{
-    width:100%;max-width:460px;background:var(--bg);
-    border-left:2px solid var(--fg);border-right:2px solid var(--fg);
-    padding-bottom:24px;
+  .hero::after{ /* costura suave com a seção de baixo */
+    content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--u) * 90);z-index:1;pointer-events:none;
+    background:linear-gradient(rgba(75,122,62,0),var(--meadow));
+  }
+  .scene{position:absolute;inset:0;z-index:0}
+  .plate{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .motion{
+    position:absolute;left:0;top:-6.25%;width:100%;height:112.5%;object-fit:cover;display:block;
+    opacity:0;transition:opacity .8s ease;
+  }
+  .motion.on{opacity:1}
+
+  .hero > :not(.scene){z-index:2}
+
+  /* ---- nav ---- */
+  .logo{
+    position:absolute;left:calc(var(--u) * 31);top:calc(var(--u) * 23);display:flex;align-items:center;gap:calc(var(--u) * 7);
+    font:900 calc(var(--u) * 29.5)/1 var(--display);color:#fff;letter-spacing:.005em;
+    text-shadow:0 calc(var(--u) * 2) calc(var(--u) * 10) rgba(28,70,120,.25);
+  }
+  .logo svg{width:calc(var(--u) * 27);height:calc(var(--u) * 27);flex:none}
+  .navpill{
+    position:absolute;left:calc(var(--u) * 443);top:calc(var(--u) * 13);width:calc(var(--u) * 546);height:calc(var(--u) * 50);border-radius:calc(var(--u) * 25);
+    background:rgba(173,196,174,.45);
+    -webkit-backdrop-filter:blur(calc(var(--u) * 14));backdrop-filter:blur(calc(var(--u) * 14));
+  }
+  .navpill ul{display:flex;justify-content:center;gap:calc(var(--u) * 54);height:100%;align-items:center}
+  .navpill a{font:500 calc(var(--u) * 19.5)/1 var(--text);color:#fff;display:inline-block;transition:transform .2s ease}
+  .navpill a:hover{transform:translateY(calc(var(--u) * -2))}
+  .pill-white{
+    background:#fff;color:var(--green);font-family:var(--text);font-weight:500;
+    display:inline-flex;align-items:center;justify-content:center;
+    transition:transform .2s ease,box-shadow .2s ease;
+    box-shadow:0 calc(var(--u) * 4) calc(var(--u) * 14) rgba(28,70,120,.12);
+  }
+  .pill-white:hover{transform:translateY(calc(var(--u) * -2));box-shadow:0 calc(var(--u) * 8) calc(var(--u) * 20) rgba(28,70,120,.2)}
+  .join{position:absolute;right:calc(var(--u) * 24);top:calc(var(--u) * 14);height:calc(var(--u) * 45);padding:0 calc(var(--u) * 24);border-radius:calc(var(--u) * 23);font-size:calc(var(--u) * 18.5);line-height:1}
+
+  /* ---- copy ---- */
+  .copy,.cta-row{display:contents}
+  .kicker{
+    position:absolute;left:0;right:0;top:calc(var(--u) * 201);text-align:center;
+    font:900 calc(var(--u) * 40.5)/1 var(--display);color:#fff;letter-spacing:.04em;
+    text-shadow:0 calc(var(--u) * 3) calc(var(--u) * 14) rgba(28,70,120,.25);
+  }
+  .headline{
+    position:absolute;left:0;right:0;top:calc(var(--u) * 260);text-align:center;
+    font:900 calc(var(--u) * 143.5)/calc(var(--u) * 118) var(--display);color:#fff;text-transform:uppercase;letter-spacing:.005em;
+    text-shadow:0 calc(var(--u) * 4) calc(var(--u) * 18) rgba(28,70,120,.28);
+  }
+  .headline .line{display:block}
+  .sub{
+    position:absolute;left:0;right:0;top:calc(var(--u) * 508);text-align:center;
+    font:400 calc(var(--u) * 21.2)/calc(var(--u) * 27) var(--text);color:#fff;text-shadow:0 calc(var(--u) * 1) calc(var(--u) * 10) rgba(28,70,120,.4);
+  }
+  .sub b{font-weight:500}
+  .sub i{
+    display:inline-block;width:calc(var(--u) * 8);height:calc(var(--u) * 8);border-radius:50%;background:#ffd84a;margin-right:calc(var(--u) * 8);vertical-align:calc(var(--u) * 1);
+    box-shadow:0 0 0 calc(var(--u) * 3) rgba(255,216,74,.3);animation:ping 1.8s ease-in-out infinite;
+  }
+  @keyframes ping{50%{box-shadow:0 0 0 calc(var(--u) * 7) rgba(255,216,74,0)}}
+  .btn-main{position:absolute;left:calc(var(--u) * 550);top:calc(var(--u) * 617);width:calc(var(--u) * 144);height:calc(var(--u) * 59);border-radius:calc(var(--u) * 30);font-size:calc(var(--u) * 22);line-height:1}
+  .btn-watch{
+    position:absolute;left:calc(var(--u) * 707);top:calc(var(--u) * 619);width:calc(var(--u) * 184);height:calc(var(--u) * 58);border-radius:calc(var(--u) * 29);
+    display:inline-flex;align-items:center;justify-content:center;gap:calc(var(--u) * 9);
+    background:rgba(204,218,173,.6);-webkit-backdrop-filter:blur(calc(var(--u) * 14));backdrop-filter:blur(calc(var(--u) * 14));
+    color:#fff;font:500 calc(var(--u) * 19.5)/1 var(--text);transition:transform .2s ease;
+  }
+  .btn-watch:hover{transform:translateY(calc(var(--u) * -2))}
+  .btn-watch svg{width:calc(var(--u) * 18);height:calc(var(--u) * 18);flex:none}
+
+  /* ---- "capítulos" = os 3 caminhos ---- */
+  .chapters,.ch-head,.cards{display:contents}
+  .ch-title{
+    position:absolute;left:calc(var(--u) * 137);top:calc(var(--u) * 861);
+    font:900 calc(var(--u) * 36)/1 var(--display);color:#fff;text-transform:uppercase;letter-spacing:.02em;
+    text-shadow:0 calc(var(--u) * 3) calc(var(--u) * 14) rgba(20,50,30,.35);
+  }
+  .ch-link{
+    position:absolute;right:calc(var(--u) * 132);top:calc(var(--u) * 872);font:400 calc(var(--u) * 22)/1 var(--text);color:#fff;
+    text-shadow:0 calc(var(--u) * 2) calc(var(--u) * 10) rgba(20,50,30,.4);white-space:nowrap;
+  }
+  .ch-link .chev{display:inline-block;transition:transform .2s ease}
+  .ch-link:hover .chev{transform:translateX(calc(var(--u) * 4))}
+
+  .card{
+    position:absolute;top:calc(var(--u) * 913);width:calc(var(--u) * 378);height:calc(var(--u) * 273);border-radius:calc(var(--u) * 15);overflow:hidden;display:block;
+    background:#7aa65f;box-shadow:0 calc(var(--u) * 10) calc(var(--u) * 28) rgba(20,50,30,.3);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;
+  }
+  .card:nth-child(1){left:calc(var(--u) * 133)}
+  .card:nth-child(2){left:calc(var(--u) * 531)}
+  .card:nth-child(3){left:calc(var(--u) * 929)}
+  .card img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .card::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(rgba(20,40,30,.18) 0,rgba(20,40,30,0) 30%,rgba(20,40,30,0) 52%,rgba(20,40,30,.62) 100%);
+  }
+  .card:hover,.card:focus-visible{transform:translateY(calc(var(--u) * -8));box-shadow:0 calc(var(--u) * 18) calc(var(--u) * 36) rgba(20,50,30,.38)}
+  .card:hover img,.card:focus-visible img{transform:scale(1.05)}
+  .card .tag{
+    position:absolute;left:calc(var(--u) * 18);top:calc(var(--u) * 16);z-index:1;padding:calc(var(--u) * 6) calc(var(--u) * 12);border-radius:calc(var(--u) * 20);
+    font:500 calc(var(--u) * 14.5)/1 var(--text);letter-spacing:.02em;color:#fff;
+    background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(calc(var(--u) * 8));backdrop-filter:blur(calc(var(--u) * 8));
+  }
+  .card .tag.hot{background:#fff;color:var(--green)}
+  .card .tri{position:absolute;left:calc(var(--u) * 20);bottom:calc(var(--u) * 20);width:calc(var(--u) * 34);height:calc(var(--u) * 34);z-index:1;filter:drop-shadow(0 calc(var(--u) * 2) calc(var(--u) * 6) rgba(20,40,30,.35))}
+  .card .lbl{
+    position:absolute;left:calc(var(--u) * 64);bottom:calc(var(--u) * 20);z-index:1;color:#fff;
+    text-shadow:0 calc(var(--u) * 2) calc(var(--u) * 10) rgba(20,40,30,.45);
+  }
+  .card .lbl small{display:block;font:400 calc(var(--u) * 14.5)/1 var(--text);opacity:.92;margin-bottom:calc(var(--u) * 6)}
+  .card .lbl strong{display:block;font:900 calc(var(--u) * 25)/1 var(--display);letter-spacing:.01em}
+
+  /* ---- entrada (WAAPI) ---- */
+  .js.anim [data-a]:not([data-done]){opacity:0}
+
+  /* ============ abaixo do quadro ============ */
+  .below{background:var(--meadow);position:relative}
+  .wrap{width:min(1100px,100% - 48px);margin-inline:auto}
+  .sec-title{
+    font:900 clamp(28px,3vw,36px)/1 var(--display);text-transform:uppercase;letter-spacing:.02em;
+    text-shadow:0 3px 14px rgba(20,50,30,.3);
+  }
+  #stack{padding:48px 0 24px}
+  .stack-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .chip{
+    padding:12px 20px;border-radius:999px;font:500 17px/1 var(--text);
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    transition:transform .2s ease,background .2s ease;
+  }
+  .chip:hover{transform:translateY(-2px);background:rgba(255,255,255,.26)}
+  .values{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:26px;font:500 14px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+  .values span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#ffd84a;margin-right:10px}
+
+  #sobre{padding:56px 0 40px}
+  .about{display:grid;grid-template-columns:minmax(0,360px) 1fr;gap:56px;align-items:center}
+  .photo{
+    position:relative;transform:rotate(-2.2deg);background:#fff;padding:12px 12px 14px;border-radius:22px;
+    box-shadow:0 18px 40px rgba(15,40,25,.35);
+  }
+  .photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 45%;border-radius:14px}
+  .photo::after{
+    content:"Web Developer";position:absolute;right:-10px;bottom:22px;padding:9px 16px;border-radius:999px;
+    background:#ffd84a;color:#2d4a1f;font:900 16px/1 var(--display);letter-spacing:.03em;text-transform:uppercase;
+    box-shadow:0 6px 16px rgba(15,40,25,.3);transform:rotate(3deg);
+  }
+  .about h2{font:900 clamp(34px,4.6vw,56px)/1.02 var(--display);text-transform:uppercase;text-shadow:0 4px 18px rgba(20,50,30,.3)}
+  .about p{margin-top:18px;max-width:46ch;font:400 19px/1.55 var(--text);color:rgba(255,255,255,.92)}
+  .about p b{font-weight:500;color:#fff}
+  .about .btn{margin-top:28px;height:56px;padding:0 30px;border-radius:30px;font-size:19px}
+  footer{padding:36px 0 40px;text-align:center;font:400 14px/1.4 var(--text);color:rgba(255,255,255,.75)}
+
+  /* ============ reduzir movimento ============ */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition:none!important;animation:none!important}
   }
 
-  /* topo */
-  .bar{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:10px 16px;border-bottom:2px solid var(--fg);
-    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  }
-  .status{display:flex;align-items:center;gap:8px;color:var(--dim)}
-  .dot{width:8px;height:8px;background:var(--acc);animation:blink 1.6s steps(2) infinite}
-  @keyframes blink{50%{opacity:.25}}
+  /* ============ telefones ============ */
+  @media (max-width:820px){
+    .hero{
+      height:auto;min-height:max(240vw,860px);display:flex;flex-direction:column;
+      padding:0 0 28px;overflow:hidden;
+    }
+    .hero::after{height:70px}
+    .scene{inset:auto;top:0;left:18%;height:100%;width:auto;aspect-ratio:9/8;transform:translateX(-18%)}
 
-  /* foto */
-  .hero{position:relative;border-bottom:2px solid var(--fg);background:#111}
-  .hero img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 45%;filter:contrast(1.05) saturate(.9)}
-  .hero .ph{
-    display:none;aspect-ratio:4/5;place-items:center;
-    font:700 96px 'Space Grotesk',sans-serif;color:var(--acc)
-  }
-  .hero::after{ /* gradiente inferior para o texto ler bem */
-    content:"";position:absolute;inset:auto 0 0 0;height:55%;
-    background:linear-gradient(transparent,rgba(10,10,10,.92));pointer-events:none
-  }
-  .id{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
-  .id h1{
-    font:700 46px/.92 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.02em
-  }
-  .id h1 span{color:var(--acc)}
-  .id p{
-    display:inline-block;margin-top:12px;padding:5px 9px;
-    background:var(--acc);color:#0a0a0a;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase
-  }
+    .logo,.join{position:absolute}
+    .logo{left:18px;top:18px;font-size:24px;gap:6px;z-index:3}
+    .logo svg{width:23px;height:23px}
+    .navpill{display:none}
+    .join{right:16px;top:12px;height:40px;padding:0 18px;border-radius:20px;font-size:16px;z-index:3}
 
-  .lead{
-    padding:18px 16px;border-bottom:2px solid var(--fg);
-    font-size:13px;line-height:1.6;color:var(--dim)
-  }
-  .lead b{color:var(--fg);font-weight:500}
+    .copy{display:flex;flex-direction:column;align-items:center;text-align:center;padding:88px 22px 0;position:relative;z-index:2}
+    .kicker,.headline,.sub{position:static}
+    .kicker{font-size:22px;letter-spacing:.05em}
+    .headline{margin-top:6px;font-size:51px;line-height:.98}
+    .sub{margin-top:16px;font-size:16px;line-height:21px;max-width:30ch}
+    .sub br{display:none}
+    .sub i{width:7px;height:7px;margin-right:7px}
+    .cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+    .btn-main,.btn-watch{position:static;transform:none}
+    .btn-main{width:auto;height:50px;padding:0 26px;font-size:18px;border-radius:26px}
+    .btn-watch{width:auto;height:50px;padding:0 22px;font-size:16px;border-radius:26px;gap:8px}
+    .btn-watch svg{width:16px;height:16px}
 
-  /* links */
-  .links{display:flex;flex-direction:column}
-  .link{
-    position:relative;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:6px;
-    padding:22px 16px;border-bottom:2px solid var(--fg);
-    color:var(--fg);text-decoration:none;
-    transition:background .15s steps(3),color .15s steps(3);
-    -webkit-tap-highlight-color:transparent;
-  }
-  .num{font-size:12px;color:var(--dim);letter-spacing:.1em}
-  .t small{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
-  .t strong{
-    display:block;font:700 27px/1 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:-.01em
-  }
-  .arrow{
-    width:44px;height:44px;border:2px solid currentColor;display:grid;place-items:center;
-    font-size:20px;font-weight:700;transition:transform .15s steps(3)
-  }
-  .link:hover,.link:focus-visible{background:var(--acc);color:#0a0a0a;outline:none}
-  .link:hover .num,.link:hover small,.link:focus-visible .num,.link:focus-visible small{color:#0a0a0a}
-  .link:hover .arrow,.link:focus-visible .arrow{transform:translate(3px,-3px);background:#0a0a0a;color:var(--acc);border-color:#0a0a0a}
-  .link:active{filter:brightness(.92)}
+    .chapters{display:block;margin-top:auto;padding-top:24px;position:relative;z-index:2;width:100%}
+    .ch-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 22px;margin-bottom:14px}
+    .ch-title,.ch-link{position:static}
+    .ch-title{font-size:26px}
+    .ch-link{font-size:15px}
+    .cards{
+      display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 22px 18px;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    }
+    .cards::-webkit-scrollbar{display:none}
+    .card{
+      position:relative;left:auto!important;top:auto;flex:0 0 min(78%,300px);height:200px;border-radius:15px;
+      scroll-snap-align:center;box-shadow:0 8px 22px rgba(20,50,30,.3);
+    }
+    .card:hover,.card:focus-visible{transform:translateY(-4px)}
+    .card .tag{left:14px;top:12px;font-size:12.5px;padding:5px 10px}
+    .card .tri{left:16px;bottom:16px;width:28px;height:28px}
+    .card .lbl{left:54px;bottom:16px}
+    .card .lbl small{font-size:12.5px;margin-bottom:5px}
+    .card .lbl strong{font-size:21px}
 
-  /* CTA principal: orçamento já nasce em destaque */
-  .link.cta{background:var(--acc);color:#0a0a0a}
-  .link.cta .num,.link.cta small{color:#0a0a0a;opacity:.7}
-  .link.cta .arrow{background:#0a0a0a;color:var(--acc);border-color:#0a0a0a}
-  .link.cta:hover,.link.cta:focus-visible{background:var(--fg)}
-  .link.cta:hover .arrow{background:#0a0a0a;color:var(--fg)}
-
-  .stack{
-    display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;
-    padding:14px 16px;border-bottom:2px solid var(--fg);
-    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)
+    .btn-main,.btn-watch{box-shadow:none}
+    .about{grid-template-columns:1fr;gap:34px}
+    .photo{max-width:320px;margin-inline:auto}
+    #sobre{padding-top:40px}
   }
-  .stack span::before{content:"/ ";color:var(--acc)}
-
-  footer{padding:18px 16px 0;font-size:11px;color:var(--dim);letter-spacing:.06em}
-
-  @media (prefers-reduced-motion:reduce){.dot{animation:none}.link,.arrow{transition:none}}
 </style>
 </head>
 <body>
-<main class="wrap">
 
-  <div class="bar">
-    <span>IAN.AKILES</span>
-    <span class="status"><i class="dot"></i>Disponível para projetos</span>
+<header class="hero" id="top">
+  <!-- cena: uma placa + um vídeo em loop. Nada é desenhado em código -->
+  <div class="scene" aria-hidden="true">
+    <img class="plate" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/3ca5d10d-ea2f-4907-876f-33bde169469e.jpg" alt="" width="2160" height="1920" fetchpriority="high">
+    <video class="motion" muted loop playsinline preload="auto" tabindex="-1"
+           src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/d2cb5bef-f92b-4e91-ae93-8dc6555e56ac.mp4"></video>
   </div>
 
-  <header class="hero">
-    <!-- Mantenha foto.png na mesma pasta deste arquivo -->
-    <img src="foto.png" alt="Ian Akiles em seu setup de desenvolvimento"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-    <div class="ph">IA</div>
-    <div class="id">
-      <h1>Ian<br><span>Akiles</span></h1>
-      <p>Web Developer</p>
-    </div>
-  </header>
+  <a class="logo" href="#top" data-a="drop" aria-label="Ian Akiles, início">
+    <svg viewBox="0 0 32 32" fill="#fff" aria-hidden="true">
+      <path d="M16 29V16.5"  stroke="#fff" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+      <path d="M16 17C16 10.2 11.2 5.6 4.6 5.4c-.7 0-1.1.5-1 1.2C4 13.4 8.7 18 15.2 17.9c.5 0 .8-.4.8-.9z"/>
+      <path d="M16 14.2c0-5.7 4-9.9 10-10.4.7-.1 1.2.4 1.1 1.1-.5 5.9-4.7 10.2-10.3 10.2-.5 0-.8-.4-.8-.9z"/>
+    </svg>
+    Ian Akiles
+  </a>
 
-  <p class="lead"><b>Desenvolvo ideias em experiências reais.</b> Sites e sistemas com design, código e resultado.</p>
-
-  <nav class="links" aria-label="Links principais">
-    <a class="link" href="https://ianakiles.com.br" target="_blank" rel="noopener">
-      <span class="num">01</span>
-      <span class="t"><small>Portfólio</small><strong>Meus projetos</strong></span>
-      <span class="arrow" aria-hidden="true">↗</span>
-    </a>
-
-    <a class="link" href="https://www.linkedin.com/in/ian-vieira-678958373?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener">
-      <span class="num">02</span>
-      <span class="t"><small>LinkedIn</small><strong>Conecte-se</strong></span>
-      <span class="arrow" aria-hidden="true">↗</span>
-    </a>
-
-    <a class="link cta" href="https://ianakiles.github.io/pagina_or-amento/" target="_blank" rel="noopener">
-      <span class="num">03</span>
-      <span class="t"><small>Orçamento</small><strong>Solicite o seu</strong></span>
-      <span class="arrow" aria-hidden="true">↗</span>
-    </a>
+  <nav class="navpill" data-a="drop" aria-label="Seções">
+    <ul>
+      <li><a href="#top">Início</a></li>
+      <li><a href="#links">Links</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+    </ul>
   </nav>
+  <a class="pill-white join" data-a="drop" href="https://ianakiles.github.io/pagina_or-amento/" target="_blank" rel="noopener">Orçamento</a>
 
-  <div class="stack">
-    <span>Design</span><span>Código</span><span>Projetos</span><span>Resultados</span>
+  <div class="copy">
+    <p class="kicker" data-a="blur">WEB DEVELOPER</p>
+    <h1 class="headline" aria-label="Ian Akiles">
+      <span class="line" data-a="spring" aria-hidden="true">Ian</span>
+      <span class="line" data-a="spring" aria-hidden="true">Akiles</span>
+    </h1>
+    <p class="sub" data-a="rise">
+      Desenvolvo ideias em experiências reais.<br>
+      Sites e sistemas com design, código e<br>
+      resultado. <i aria-hidden="true"></i><b>Disponível para projetos.</b>
+    </p>
+    <div class="cta-row">
+      <a class="pill-white btn-main" data-a="rise" href="https://ianakiles.github.io/pagina_or-amento/" target="_blank" rel="noopener">Orçamento</a>
+      <a class="btn-watch" data-a="rise" href="https://ianakiles.com.br" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg>
+        Ver projetos
+      </a>
+    </div>
   </div>
+
+  <section class="chapters" id="links" aria-labelledby="ch-t">
+    <div class="ch-head">
+      <h2 class="ch-title" id="ch-t" data-a="rise">Escolha o caminho</h2>
+      <a class="ch-link" data-a="rise" href="https://ianakiles.github.io/pagina_or-amento/" target="_blank" rel="noopener">peça seu orçamento <span class="chev">›</span></a>
+    </div>
+    <div class="cards">
+      <a class="card" data-a="rise" href="https://ianakiles.com.br" target="_blank" rel="noopener">
+        <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/cd2d844f-ae3f-4fa9-8067-b077530b6e71.webp" alt="" loading="lazy">
+        <span class="tag">01 · Portfólio</span>
+        <svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.2v13.6c0 .8.9 1.3 1.6.9l10.6-6.8c.6-.4.6-1.3 0-1.7L9.6 4.3C8.9 3.9 8 4.4 8 5.2z"/></svg>
+        <span class="lbl"><small>Veja o que já brotou</small><strong>Meus projetos</strong></span>
+      </a>
+      <a class="card" data-a="rise" href="https://www.linkedin.com/in/ian-vieira-678958373?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener">
+        <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/48f5b97e-c27c-4afd-9427-eb35aebd1751.webp" alt="" loading="lazy">
+        <span class="tag">02 · LinkedIn</span>
+        <svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.2v13.6c0 .8.9 1.3 1.6.9l10.6-6.8c.6-.4.6-1.3 0-1.7L9.6 4.3C8.9 3.9 8 4.4 8 5.2z"/></svg>
+        <span class="lbl"><small>Siga a trilha</small><strong>Conecte-se</strong></span>
+      </a>
+      <a class="card" data-a="rise" href="https://ianakiles.github.io/pagina_or-amento/" target="_blank" rel="noopener">
+        <img src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/cde5384e-ce4d-423f-925a-451b779066e0.webp" alt="" loading="lazy">
+        <span class="tag hot">03 · Orçamento</span>
+        <svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.2v13.6c0 .8.9 1.3 1.6.9l10.6-6.8c.6-.4.6-1.3 0-1.7L9.6 4.3C8.9 3.9 8 4.4 8 5.2z"/></svg>
+        <span class="lbl"><small>Solte a ideia ao vento</small><strong>Solicite o seu</strong></span>
+      </a>
+    </div>
+  </section>
+</header>
+
+<div class="below">
+  <section id="stack">
+    <div class="wrap">
+      <h2 class="sec-title">Na minha caixa de ferramentas</h2>
+      <div class="stack-row">
+        <span class="chip">C++</span><span class="chip">C#</span><span class="chip">Python</span>
+        <span class="chip">React</span><span class="chip">CSS</span><span class="chip">Linux</span>
+      </div>
+      <div class="values"><span>Design</span><span>Código</span><span>Projetos</span><span>Resultados</span></div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="wrap about">
+      <figure class="photo">
+        <img src="foto.png" alt="Ian Akiles segurando seu notebook cheio de adesivos de tecnologia" loading="lazy">
+      </figure>
+      <div>
+        <h2>Desenvolvo ideias em experiências reais.</h2>
+        <p><b>Sites e sistemas com design, código e resultado.</b> Do primeiro rascunho ao ar, cada projeto nasce como semente e cresce até virar algo que funciona de verdade.</p>
+        <a class="pill-white btn" href="https://ianakiles.github.io/pagina_or-amento/" target="_blank" rel="noopener">Solicite seu orçamento</a>
+      </div>
+    </div>
+  </section>
 
   <footer>© 2026 Ian Akiles. Todos os direitos reservados.</footer>
-</main>
+</div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var video = document.querySelector('.motion');
+
+  /* vídeo: só roda sem "reduzir movimento"; aparece quando começa a tocar */
+  if(reduce){ video.remove(); }
+  else{
+    video.addEventListener('playing', function(){ video.classList.add('on'); }, {once:true});
+    var p = video.play(); if(p && p.catch) p.catch(function(){});
+  }
+
+  /* entrada: uma linha do tempo, roda uma vez */
+  if(reduce) return;
+  var U = innerWidth > 820 ? innerWidth/1440 : 0.4;
+  var $ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var ease = 'cubic-bezier(.2,.8,.2,1)', spring = 'cubic-bezier(.34,1.56,.64,1)';
+
+  function go(els, frames, delay, dur, easing, stagger){
+    stagger = stagger || 0;
+    els.forEach(function(el, i){
+      var a = el.animate(frames, {duration:dur, delay:delay + i*stagger, easing:easing, fill:'both'});
+      a.onfinish = function(){ el.setAttribute('data-done',''); a.cancel(); };
+    });
+  }
+  var t = 0.05;
+  go($('[data-a=drop]'),
+     [{opacity:0, transform:'translateY('+(-26*U)+'px)'},{opacity:1, transform:'none'}],
+     t*1000, 650, ease, 90);
+  t += 0.25;
+  go($('[data-a=blur]'),
+     [{opacity:0, filter:'blur('+(14*U)+'px)'},{opacity:1, filter:'blur(0)'}],
+     t*1000, 700, ease);
+  t += 0.2;
+  go($('[data-a=spring]'),
+     [{opacity:0, transform:'translateY('+(60*U)+'px)', filter:'blur('+(18*U)+'px)'},
+      {opacity:1, transform:'none', filter:'blur(0)'}],
+     t*1000, 900, spring, 160);
+  t += 0.5;
+  go($('.sub'),      [{opacity:0, transform:'translateY('+(30*U)+'px)'},{opacity:1, transform:'none'}], t*1000, 650, ease);
+  go($('.cta-row > *'), [{opacity:0, transform:'translateY('+(30*U)+'px)'},{opacity:1, transform:'none'}], (t+.1)*1000, 650, ease, 100);
+  t += 0.3;
+  go($('.ch-title, .ch-link'), [{opacity:0, transform:'translateY('+(30*U)+'px)'},{opacity:1, transform:'none'}], t*1000, 650, ease, 80);
+  go($('.card'), [{opacity:0, transform:'translateY('+(60*U)+'px)'},{opacity:1, transform:'none'}], (t+.12)*1000, 750, ease, 120);
+})();
+</script>
 </body>
 </html>
